@@ -39,6 +39,7 @@ class QuizUI:
 
     def get_new_question(self):
         if self.quiz.still_has_questions():
+            self.canvas.config(bg="white")
             q_line = self.quiz.next_question()
             self.canvas.itemconfig(self.question, text=q_line)
         else:
@@ -50,17 +51,19 @@ class QuizUI:
     def choose_true(self):
         self.my_answer = "True"
         self.check_answer()
-        self.get_new_question()
 
     def choose_false(self):
         self.my_answer = "False"
         self.check_answer()
-        self.get_new_question()
 
     def check_answer(self):
         answer = self.quiz.current_question.answer
         if self.my_answer == answer:
+            self.canvas.config(bg="green")
             self.update_score()
+        else:
+            self.canvas.config(bg="red")
+        self.window.after(1000, self.get_new_question)
 
     def update_score(self):
         self.quiz.score += 1
