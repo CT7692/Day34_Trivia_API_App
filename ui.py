@@ -39,6 +39,7 @@ class QuizUI:
 
     def get_new_question(self):
         if self.quiz.still_has_questions():
+            self.enable_buttons()
             self.canvas.config(bg="white")
             q_line = self.quiz.next_question()
             self.canvas.itemconfig(self.question, text=q_line)
@@ -60,11 +61,21 @@ class QuizUI:
         answer = self.quiz.current_question.answer
         if self.my_answer == answer:
             self.canvas.config(bg="green")
+            self.disable_buttons()
             self.update_score()
         else:
             self.canvas.config(bg="red")
+            self.disable_buttons()
         self.window.after(1000, self.get_new_question)
 
     def update_score(self):
         self.quiz.score += 1
         self.score_text.config(text=f"Score: {self.quiz.score}")
+
+    def enable_buttons(self):
+        self.true.config(state="active")
+        self.false.config(state="active")
+
+    def disable_buttons(self):
+        self.true.config(state="disabled")
+        self.false.config(state="disabled")
