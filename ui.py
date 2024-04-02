@@ -46,7 +46,7 @@ class QuizUI:
         else:
             messagebox.showinfo(
                 title="You Finished",
-                message=f"You've completed the quiz."
+                message="You've completed the quiz."
                     f"\nYour final score: {self.quiz.score}/{self.quiz.question_number}")
             self.window.quit()
     def choose_true(self):
